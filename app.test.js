@@ -1,11 +1,10 @@
-const fs = require('fs');
+const request = require('supertest');
+const app = require('./app');
 
-describe('Application tests', () => {
-  test('app.js exists', () => {
-    expect(fs.existsSync('app.js')).toBe(true);
-  });
-
-  test('package.json exists', () => {
-    expect(fs.existsSync('package.json')).toBe(true);
+describe('GET /', () => {
+  test('returns Hello World!', async () => {
+    const response = await request(app).get('/');
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toBe('Hello World!');
   });
 });
